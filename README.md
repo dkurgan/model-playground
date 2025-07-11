@@ -1,69 +1,38 @@
-# React + TypeScript + Vite
+# Model Playground
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based playground for testing and comparing AI models with real-time streaming chat capabilities.
 
-Currently, two official plugins are available:
+## Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[View Architecture Diagram](https://excalidraw.com/#json=Vq0I1ZyR8nEmChzaK8Ciz,dgSLDlSl8cBXathewlTgxw)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Real-time streaming chat interface
+- Model comparison and performance metrics
+- History tracking with model change detection
+- Network statistics and cost monitoring
+- Support for multiple AI model providers
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- React + TypeScript + Vite
+- Real-time streaming with Server-Sent Events
+- Context-based state management
+- Responsive design
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Development
+
+This project uses Vite for fast development and HMR (Hot Module Replacement).
+
+### Available Scripts
+
+```bash
+npm run dev     # Start development server
+npm run build   # Build for production
+npm run preview # Preview production build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ESLint Configuration
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The project includes ESLint with TypeScript support. For production applications, consider enabling type-aware lint rules by updating the configuration to use `recommendedTypeChecked` or `strictTypeChecked`.
