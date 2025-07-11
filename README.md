@@ -2,6 +2,10 @@
 
 A React-based playground for testing and comparing AI models with real-time streaming chat capabilities.
 
+## Try
+
+[GH-Pages](https://dkurgan.github.io/model-playground/)
+
 ## Architecture
 
 [View Architecture Diagram](https://excalidraw.com/#json=Vq0I1ZyR8nEmChzaK8Ciz,dgSLDlSl8cBXathewlTgxw)
