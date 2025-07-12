@@ -69,8 +69,19 @@ export async function fetchModels(): Promise<FireworksModel[]> {
     
     const data = await response.json()
     
-    const modelsArray = normalizeResponseData(data)
-    const transformedModels = transformModelsData(modelsArray)
+    const models = Array.isArray(data) ? data : data.models || []
+    
+    const transformedModels = models.map((model: any) => ({
+      id: model.name,
+      name: model.title,
+      provider: model.provider?.name || 'Fireworks',
+      description: model.description || '',
+      contextLength: model.contextLength,
+      tags: model.tags,
+      cost: model.cost,
+      serverless: model.serverless,
+      supportsImageInput: model.supportsImageInput
+    }))
     
     if (transformedModels.length > 0) {
       return transformedModels
@@ -83,45 +94,3 @@ export async function fetchModels(): Promise<FireworksModel[]> {
   }
 }
 
-/**
- * Normalize API response data to array format
- */
-function normalizeResponseData(data: unknown): any[] {
-  if (Array.isArray(data)) return data
-  if (data && typeof data === 'object') {
-    const dataObj = data as Record<string, unknown>
-    return dataObj.models && Array.isArray(dataObj.models) ? dataObj.models : Object.values(dataObj)
-  }
-  return []
-}
-
-/**
- * Transform raw model data to FireworksModel interface
- */
-function transformModelsData(modelsArray: any[]): FireworksModel[] {
-  return modelsArray
-    .filter((model: any) => model && typeof model === 'object')
-    .map(transformSingleModel)
-    .filter((model: FireworksModel) => model.id && model.name)
-}
-
-/**
- * Transform a single model object
- */
-function transformSingleModel(model: any): FireworksModel {
-  return {
-    id: model.id || model.name || model.model || String(model),
-    name: model.title || model.name || model.hf || model.id || String(model),
-    provider: model.provider?.name || model.provider?.org || model.provider || model.org || 'Fireworks',
-    description: model.description || '',
-    contextLength: model.contextLength,
-    tags: Array.isArray(model.tags) ? model.tags : undefined,
-    cost: model.cost ? {
-      inputTokenPrice: model.cost.inputTokenPrice,
-      outputTokenPrice: model.cost.outputTokenPrice,
-      tokenPrice: model.cost.tokenPrice
-    } : undefined,
-    serverless: model.serverless,
-    supportsImageInput: model.supportsImageInput
-  }
-}

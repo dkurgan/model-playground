@@ -17,16 +17,7 @@ export const useFireworksService = () => {
           const service = initializeFireworksService(apiKey)
           
           setModelsLoading(true)
-          const availableModels = await service.fetchModels()
-          
-          const validModels = availableModels.filter(model => 
-            model && 
-            typeof model === 'object' && 
-            model.id && 
-            model.name &&
-            typeof model.id === 'string' &&
-            typeof model.name === 'string'
-          )
+          const validModels = await service.fetchModels()
           
           setModels(validModels)
           
